@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router'; // <-- Import RouterModule
+import { StudentRegisterComponent } from './components/student-register/student-register.component'; // <-- Corrected file path
+import { StudentListComponent } from './components/student-list/student-list.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss'],
+  standalone: true,  // <-- Standalone component
+  imports: [RouterModule] // <-- Add components here
+ // <-- Add components here
+  // <-- Add components here
 })
 export class AppComponent {
   title = 'credit-enrollment-frontend';

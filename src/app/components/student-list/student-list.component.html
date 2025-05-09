@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div class="container">
+    <h2>Lista de Estudiantes</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Materias</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{student.name}}</td>
+          <td>
+            <ul>
+              <li *ngFor="let course of student.courses">
+                {{course.name}} (Profesor: {{course.professorName}})
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
