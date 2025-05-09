@@ -1,20 +1,20 @@
-/* student-register.component.scss */
-
 :host {
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la pantalla */
-  background-color: #f4f4f4; /* Un color de fondo suave para el ejemplo */
-  padding: 20px; /* Un poco de espacio alrededor del contenido */
+  justify-content: center;
+  align-items: flex-start; // sube el formulario
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding: 40px 20px;
+  overflow-y: auto;
 }
 
 .student-register-container {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ocupa el 100% del ancho de su contenedor flex */
-  max-width: 600px; /* Establece un ancho máximo para que el formulario no sea demasiado ancho en pantallas grandes */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
 }
 
 form {
@@ -38,7 +38,7 @@ form {
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      box-sizing: border-box; /* Asegura que el padding y el borde no aumenten el ancho total */
+      box-sizing: border-box;
       font-size: 16px;
     }
 
@@ -48,19 +48,23 @@ form {
     }
   }
 
-  > div:last-child { /* Estilo para el contenedor de los checkboxes de materias */
+  input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+  }
+
+  > div:last-child {
     margin-bottom: 20px;
     border-top: 1px solid #eee;
     padding-top: 15px;
 
     label {
-      display: block;
-      margin-bottom: 8px;
       font-weight: normal;
     }
 
-    > div { /* Estilo para el contenedor del select de profesor por materia */
+    > div {
       margin-left: 20px;
+      margin-top: 10px;
     }
   }
 
@@ -84,35 +88,3 @@ form {
     }
   }
 }
-
-.container {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-}
-
-/* Opcional: Si quieres que el formulario ocupe todo el alto de la pantalla y esté centrado verticalmente,
-   puedes usar estilos adicionales en el :host como vimos antes: */
-:host {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f4f4f4; /* Un color de fondo para la página */
-}
-
-/* Opcional: Si no usas el :host para el centrado vertical, puedes aplicar un estilo
-   directamente al componente o a un contenedor padre del .container */
-/*
-.page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-}
-*/

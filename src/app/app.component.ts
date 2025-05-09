@@ -13,5 +13,5 @@ import { StudentListComponent } from './components/student-list/student-list.com
   // <-- Add components here
 })
 export class AppComponent {
-  title = 'credit-enrollment-frontend';
+  title = 'App para registrar créditos Estudiantes';
 }

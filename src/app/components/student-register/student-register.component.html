@@ -1,8 +1,8 @@
-<div class="container">
+<div class="student-register-container">
   <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="name">Nombre:</label>
-      <input type="text" id="name" formControlName="name">
+      <input type="text" id="name" formControlName="name" />
       <div *ngIf="studentForm.get('name')?.invalid && studentForm.get('name')?.touched">
         <small style="color: red;">El nombre es requerido.</small>
       </div>
@@ -10,7 +10,7 @@
 
     <div>
       <label for="email">Email:</label>
-      <input type="email" id="email" formControlName="email">
+      <input type="email" id="email" formControlName="email" />
       <div *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched">
         <small style="color: red;" *ngIf="studentForm.get('email')?.errors?.['required']">El email es requerido.</small>
         <small style="color: red;" *ngIf="studentForm.get('email')?.errors?.['email']">El email no es válido.</small>
@@ -35,7 +35,8 @@
         <input
           type="checkbox"
           [checked]="selectedSubjects.includes(subject.subjectId)"
-          (change)="onSubjectChange(subject.subjectId, $event)">
+          (change)="onSubjectChange(subject.subjectId, $event)"
+        />
         {{ subject.subjectName }}
       </label>
 
@@ -53,6 +54,8 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="studentForm.invalid || selectedSubjects.length === 0 || hasUnassignedTeachers()">Registrar estudiante</button>
+    <button type="submit" [disabled]="studentForm.invalid || selectedSubjects.length === 0 || hasUnassignedTeachers()">
+      Registrar estudiante
+    </button>
   </form>
 </div>
