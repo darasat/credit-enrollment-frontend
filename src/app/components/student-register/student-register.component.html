@@ -1,1 +1,58 @@
-<p>student-register works!</p>
+<div class="container">
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" formControlName="name">
+      <div *ngIf="studentForm.get('name')?.invalid && studentForm.get('name')?.touched">
+        <small style="color: red;">El nombre es requerido.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="email">
+      <div *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched">
+        <small style="color: red;" *ngIf="studentForm.get('email')?.errors?.['required']">El email es requerido.</small>
+        <small style="color: red;" *ngIf="studentForm.get('email')?.errors?.['email']">El email no es válido.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="programId">Programa académico:</label>
+      <select id="programId" formControlName="programId">
+        <option [value]="null">-- Selecciona un programa --</option>
+        <option *ngFor="let program of programs" [value]="program.programId">
+          {{ program.name }}
+        </option>
+      </select>
+      <div *ngIf="studentForm.get('programId')?.invalid && studentForm.get('programId')?.touched">
+        <small style="color: red;">Selecciona un programa académico.</small>
+      </div>
+    </div>
+
+    <div *ngFor="let subject of subjects">
+      <label>
+        <input
+          type="checkbox"
+          [checked]="selectedSubjects.includes(subject.subjectId)"
+          (change)="onSubjectChange(subject.subjectId, $event)">
+        {{ subject.subjectName }}
+      </label>
+
+      <div *ngIf="selectedSubjects.includes(subject.subjectId)">
+        <label>Profesor:</label>
+        <select (change)="onTeacherSelect(subject.subjectId, $event)">
+          <option [value]="0">-- Seleccione un profesor --</option>
+          <option *ngFor="let teacher of teachers" [value]="teacher.teacherId">
+            {{ teacher.name }}
+          </option>
+        </select>
+        <div *ngIf="subjectTeacherMap[subject.subjectId] === 0">
+          <small style="color: red;">Seleccione un profesor para esta materia.</small>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="studentForm.invalid || selectedSubjects.length === 0 || hasUnassignedTeachers()">Registrar estudiante</button>
+  </form>
+</div>

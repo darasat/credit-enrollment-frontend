@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Student } from '../components/interfaces/Student';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -12,17 +13,17 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   // Método para registrar estudiantes
-  registerStudent(student: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}`, student);
+  registerStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.apiUrl, student);
   }
 
   // Obtener todos los estudiantes
-  getAllStudents(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`);
+  getAllStudents(): Observable<Student[]> {
+    return this.http.get<Student[]>(this.apiUrl);
   }
 
   // Obtener estudiante por ID
-  getStudentById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getStudentById(id: number): Observable<Student> {
+    return this.http.get<Student>(`${this.apiUrl}/${id}`);
   }
 }

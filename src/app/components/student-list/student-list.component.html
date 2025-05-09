@@ -1,4 +1,5 @@
-<div class="wrapper">
+<!-- Agrega esta clase al contenedor padre más alto posible, como en app.component.html -->
+<div class="full-screen-center">
   <div class="container">
     <h2>Lista de Estudiantes</h2>
     <table class="table">
@@ -13,9 +14,9 @@
           <td>{{student.name}}</td>
           <td>
             <ul>
-              <li *ngFor="let course of student.courses">
+              <!-- <li *ngFor="let course of student.courses">
                 {{course.name}} (Profesor: {{course.professorName}})
-              </li>
+              </li> -->
             </ul>
           </td>
         </tr>
