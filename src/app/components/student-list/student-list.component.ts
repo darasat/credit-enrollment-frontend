@@ -23,6 +23,7 @@ export class StudentListComponent implements OnInit {
     this.studentService.getAllStudents().subscribe(
       (students) => {
         this.students = students;
+        console.log('Students loaded:', this.students);
       },
       (error) => {
         console.error('Error loading students:', error);

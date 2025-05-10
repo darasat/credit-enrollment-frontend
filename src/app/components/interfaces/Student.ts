@@ -3,17 +3,17 @@ export interface Student {
   name: string;
   email: string;
   createdAt?: Date;
-  subjectIds?: number[]; // Lista de materias seleccionadas
-  subjectTeachers?: SubjectTeacher[]; // Asignación materia-profesor
+  studentSubjects?: StudentSubject[]; // Asegúrate de que esto sea un array
+  studentEnrollments?: StudentProgramEnrollment[]; // Asegúrate de que esto sea un array
+  programId?: number;
 }
 
-export interface Subject {
+export interface StudentSubject {
   subjectId: number;
   subjectName: string;
-  credits: number;
 }
 
-export interface SubjectTeacher {
-  subjectId: number;
-  teacherId: number;
+export interface StudentProgramEnrollment {
+  programId: number;
+  enrollmentDate: Date;
 }

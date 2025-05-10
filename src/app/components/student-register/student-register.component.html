@@ -1,7 +1,6 @@
 <div class="student-register-container">
+  <h2>Registro de Estudiante</h2>
   <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
-    
-    <!-- Nombre -->
     <div>
       <label for="name">Nombre:</label>
       <input type="text" id="name" formControlName="name" />
@@ -10,7 +9,6 @@
       </div>
     </div>
 
-    <!-- Email -->
     <div>
       <label for="email">Email:</label>
       <input type="email" id="email" formControlName="email" />
@@ -20,7 +18,6 @@
       </div>
     </div>
 
-    <!-- Programa académico -->
     <div>
       <label for="programId">Programa académico:</label>
       <select id="programId" formControlName="programId">
@@ -34,37 +31,42 @@
       </div>
     </div>
 
-    <!-- Materias y selección de profesor -->
-    <div *ngFor="let subject of subjects">
-      <label>
-        <input
-          type="checkbox"
-          [checked]="selectedSubjects.includes(subject.subjectId)"
-          [disabled]="!selectedSubjects.includes(subject.subjectId) && selectedSubjects.length >= 3"
-          (change)="onSubjectChange(subject.subjectId, $event)"
-        />
-        {{ subject.subjectName }} (3 créditos)
-      </label>
-
-      <!-- Selección de profesor si la materia está seleccionada -->
-      <div *ngIf="selectedSubjects.includes(subject.subjectId)">
-        <label>Profesor:</label>
-        <select (change)="onTeacherSelect(subject.subjectId, $event)">
-          <option [value]="0">-- Seleccione un profesor --</option>
-          <option *ngFor="let teacher of getFilteredTeachers(subject.subjectId)" [value]="teacher.teacherId">
-            {{ teacher.name }}
-          </option>
-        </select>
-        <div *ngIf="subjectTeacherMap[subject.subjectId] === 0">
-          <small style="color: red;">Seleccione un profesor para esta materia.</small>
-        </div>
-        <div *ngIf="hasDuplicateTeacher()">
-          <small style="color: red;">Este profesor ya fue asignado a otra materia.</small>
-        </div>
+    <div>
+      <h3>Selección de Materias (Máximo 3)</h3>
+      <div *ngFor="let subject of subjects; let i = index">
+        <label>
+          <input
+            type="checkbox"
+            [value]="subject.subjectId"
+            (change)="toggleSubject(subject.subjectId)"
+            [disabled]="selectedSubjects.length >= 3 && !isSelected(subject.subjectId)"
+          />
+          {{ subject.subjectName }} (3 créditos)
+        </label>
+      </div>
+      <div *ngIf="selectedSubjects.length !== 3 && studentForm.touched">
+        <small style="color: red;">Debes seleccionar exactamente 3 materias.</small>
       </div>
     </div>
 
-    <!-- Botón de registro -->
+    <div *ngFor="let subjectId of selectedSubjects">
+      <h3>Profesor para {{ getSubjectName(subjectId) }}</h3>
+      <label for="teacher-{{subjectId}}">Profesor:</label>
+      <select id="teacher-{{subjectId}}" (change)="assignTeacher(subjectId, $event)">
+        <option [value]="0">-- Seleccione un profesor --</option>
+        <option *ngFor="let teacher of getAvailableTeachersForSubject(subjectId)" [value]="teacher.teacherId">
+          {{ teacher.name }}
+        </option>
+      </select>
+      <div *ngIf="subjectTeacherMap[subjectId] === 0 && studentForm.touched">
+        <small style="color: red;">Debes seleccionar un profesor para {{ getSubjectName(subjectId) }}.</small>
+      </div>
+    </div>
+
+    <div *ngIf="hasDuplicateTeacher()">
+      <small style="color: red;">No puedes seleccionar el mismo profesor para diferentes materias.</small>
+    </div>
+
     <button
       type="submit"
       [disabled]="studentForm.invalid || selectedSubjects.length !== 3 || hasUnassignedTeachers() || hasDuplicateTeacher()"
@@ -72,4 +74,14 @@
       Registrar estudiante
     </button>
   </form>
+
+  <hr />
+
+   <h2>Otros Estudiantes Registrados</h2>
+  <p>La lista de otros estudiantes no se puede mostrar con los métodos de servicio actuales.</p>
+
+  <div *ngFor="let subjectId of selectedSubjects">
+    <h3>Compañeros en {{ getSubjectName(subjectId) }}</h3>
+    <p>La lista de compañeros por materia no se puede mostrar con los métodos de servicio actuales.</p>
+  </div>
 </div>
