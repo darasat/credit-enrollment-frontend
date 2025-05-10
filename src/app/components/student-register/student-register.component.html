@@ -54,7 +54,7 @@
       <label for="teacher-{{subjectId}}">Profesor:</label>
       <select id="teacher-{{subjectId}}" (change)="assignTeacher(subjectId, $event)">
         <option [value]="0">-- Seleccione un profesor --</option>
-        <option *ngFor="let teacher of getAvailableTeachersForSubject(subjectId)" [value]="teacher.teacherId">
+        <option *ngFor="let teacher of getAvailableTeachersForSubject(subjectId)" [value]="teacher.teacherId" [selected]="subjectTeacherMap[subjectId] === teacher.teacherId">
           {{ teacher.name }}
         </option>
       </select>
@@ -77,7 +77,7 @@
 
   <hr />
 
-   <h2>Otros Estudiantes Registrados</h2>
+  <h2>Otros Estudiantes Registrados</h2>
   <p>La lista de otros estudiantes no se puede mostrar con los métodos de servicio actuales.</p>
 
   <div *ngFor="let subjectId of selectedSubjects">
@@ -85,3 +85,4 @@
     <p>La lista de compañeros por materia no se puede mostrar con los métodos de servicio actuales.</p>
   </div>
 </div>
+

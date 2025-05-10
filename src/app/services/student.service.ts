@@ -35,12 +35,11 @@ export class StudentService {
     return this.http.get<Student>(`${this.apiUrl}/${id}`);
   }
 
-
-  assignSubjects(subjectTeacherRecords: SubjectTeacher[]): Observable<any> {
-    return this.http.post('/api/Students/assign-subjects', subjectTeacherRecords);
+ assignSubjects(subjectTeacherRecords: SubjectTeacher[]): Observable<any> {
+  return this.http.post(`${this.apiUrl}/assign-subjects`, subjectTeacherRecords);
   }
 
   getSharedStudents(studentId: number): Observable<Student[]> {
-    return this.http.get<Student[]>(`/api/Students/${studentId}/shared-students`);
-  }
+  return this.http.get<Student[]>(`${this.apiUrl}/${studentId}/shared-students`);
+ }
 }

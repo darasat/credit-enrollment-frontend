@@ -14,7 +14,7 @@ export class ProfessorService {
     return this.http.get<Professor[]>(this.apiUrl);
   }
 
-   assignToSubject(subjectId: number, professorId: number): Observable<any> {
-    return this.http.post(`/api/Professors/assign-to-subject/${subjectId}`, { professorId });
-  }
+ assignToSubject(subjectId: number): Observable<Professor> {
+  return this.http.get<Professor>(`${this.apiUrl}/assigned-to-subject/${subjectId}`);
+}
 }
