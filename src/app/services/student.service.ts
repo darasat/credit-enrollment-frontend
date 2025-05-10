@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class StudentService {
+
   private apiUrl = `${environment.apiUrl}/students`;
 
   constructor(private http: HttpClient) {}
@@ -15,6 +16,12 @@ export class StudentService {
   // Método para registrar estudiantes
   registerStudent(student: Student): Observable<Student> {
     return this.http.post<Student>(this.apiUrl, student);
+  }
+
+   // Método para registrar la relación estudiante-materia-profesor
+  registerSubjectTeachers(subjectTeacherRecords: { studentId: number; subjectId: number; teacherId: number }[]): Observable<void> {
+    // Endpoint para registrar las relaciones de materias y profesores
+    return this.http.post<void>(`${this.apiUrl}/register-subject-teachers`, subjectTeacherRecords);
   }
 
   // Obtener todos los estudiantes

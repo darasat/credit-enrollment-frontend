@@ -8,7 +8,7 @@ import { Subject } from '../components/interfaces/Subject';
   providedIn: 'root'
 })
 export class SubjectService {
-    private apiUrl = `${environment.apiUrl}/subject`;
+    private apiUrl = `${environment.apiUrl}/subjects`;
 
   constructor(private http: HttpClient) {}
 

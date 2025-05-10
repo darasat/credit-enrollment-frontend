@@ -1,4 +1,4 @@
 export interface Program {
   programId: number;
-  name: string;
+  programName: string;
 }
