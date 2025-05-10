@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Student } from '../components/interfaces/Student';
 import { environment } from '../environments/environment';
+import { SubjectTeacher } from '../components/interfaces/Subject';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,14 @@ export class StudentService {
   // Obtener estudiante por ID
   getStudentById(id: number): Observable<Student> {
     return this.http.get<Student>(`${this.apiUrl}/${id}`);
+  }
+
+
+  assignSubjects(subjectTeacherRecords: SubjectTeacher[]): Observable<any> {
+    return this.http.post('/api/Students/assign-subjects', subjectTeacherRecords);
+  }
+
+  getSharedStudents(studentId: number): Observable<Student[]> {
+    return this.http.get<Student[]>(`/api/Students/${studentId}/shared-students`);
   }
 }
