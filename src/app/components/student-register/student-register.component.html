@@ -61,12 +61,12 @@
       </div>
     </div>
 
-    <div *ngIf="hasDuplicateTeacher()">
+    <!-- <div *ngIf="hasDuplicateTeacher()">
       <small style="color: red;">No puedes seleccionar el mismo profesor para diferentes materias.</small>
-    </div>
+    </div> -->
 
     <button type="submit"
-      [disabled]="studentForm.invalid || selectedSubjects.length !== 3 || hasUnassignedTeachers() || hasDuplicateTeacher()">
+      [disabled]=" selectedSubjects.length !== 3 || hasUnassignedTeachers()">
       Registrar estudiante
     </button>
   </form>

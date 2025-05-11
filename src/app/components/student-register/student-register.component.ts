@@ -93,8 +93,6 @@ export class StudentRegisterComponent implements OnInit {
     return teacher;  // Retorna el arreglo de profesores
   }
 
-
-
   assignTeacher(subjectId: number, event: Event): void {
     const teacherId = +(event.target as HTMLSelectElement).value;
     this.subjectTeacherMap[subjectId] = teacherId === 0 ? null : teacherId;
@@ -110,8 +108,8 @@ export class StudentRegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.studentForm.invalid || this.selectedSubjects.length !== 3 || this.hasUnassignedTeachers() || this.hasDuplicateTeacher()) {
-      alert('Por favor, completa todos los campos, selecciona exactamente 3 materias y asigna un profesor diferente a cada una.');
+    if (this.studentForm.invalid || this.selectedSubjects.length !== 3 || this.hasUnassignedTeachers()) {
+      alert('Por favor, completa todos los campos, selecciona exactamente 3 materias');
       return;
     }
 
