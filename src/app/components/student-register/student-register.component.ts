@@ -47,9 +47,7 @@ export class StudentRegisterComponent implements OnInit {
 
   loadInitialData(): void {
     this.subjectService.getSubjects().subscribe((data) => (this.subjects = data));
-    this.professorService.getAllTeachers().subscribe((data) => {
-      console.log('Profesores recibidos:', data);
-      this.teachers = data;
+    this.professorService.getAllTeachers().subscribe((data) => {this.teachers = data;
     });
 
     this.programService.getAllPrograms().subscribe((data) => (this.programs = data));
@@ -68,7 +66,6 @@ export class StudentRegisterComponent implements OnInit {
       this.professorService.getAssignedTeacherForSubject(subjectId).subscribe({
         next: (professor) => {
           this.subjectTeacherMap[subjectId] = professor?.teacherId ?? null;
-          console.log('Profesor asignado a la materia:', professor);
         },
         error: () => {
           this.subjectTeacherMap[subjectId] = null;
@@ -87,9 +84,7 @@ export class StudentRegisterComponent implements OnInit {
   }
   getAvailableTeacherForSubject(subjectId: number): Professor[] {
     // Buscar los profesores asignados a la materia usando el subjectId
-    console.log (this.teachers)
     const teacher = this.teachers.filter(teacher => teacher.subjectIds?.includes(subjectId));
-    console.log('Profesores disponibles para la materia:', teacher);
     return teacher;  // Retorna el arreglo de profesores
   }
 
@@ -115,7 +110,7 @@ export class StudentRegisterComponent implements OnInit {
 
     const subjectTeachers: SubjectTeacher[] = this.selectedSubjects.map((subjectId) => ({
       subjectId,
-      teacherId: this.subjectTeacherMap[subjectId]!,
+      professorId: this.subjectTeacherMap[subjectId]!,
     }));
 
     const student: Student = {
@@ -136,9 +131,9 @@ export class StudentRegisterComponent implements OnInit {
         const subjectTeacherRecords = subjectTeachers.map((st) => ({
           studentId,
           subjectId: st.subjectId,
-          teacherId: st.teacherId,
+          professorId: st.professorId,
         }));
-
+        
         this.studentService.registerSubjectTeachers(subjectTeacherRecords).subscribe({
           next: () => {
             alert('Estudiante registrado exitosamente con sus materias y profesores asignados.');

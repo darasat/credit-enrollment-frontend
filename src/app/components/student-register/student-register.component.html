@@ -50,8 +50,8 @@
       <label for="teacher-{{subjectId}}">Profesor:</label>
       <select id="teacher-{{subjectId}}" (change)="assignTeacher(subjectId, $event)">
         <option [value]="0">-- Seleccione un profesor --</option>
-        <option *ngFor="let teacher of getAvailableTeacherForSubject(subjectId)" [value]="teacher.teacherId"
-          [selected]="subjectTeacherMap[subjectId] === teacher.teacherId">
+        <option *ngFor="let teacher of getAvailableTeacherForSubject(subjectId)" [value]="teacher.professorId"
+          [selected]="subjectTeacherMap[subjectId] === teacher.professorId">
           {{ teacher.name }}
         </option>
       </select>

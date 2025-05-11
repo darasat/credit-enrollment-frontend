@@ -20,7 +20,7 @@ export class StudentService {
   }
 
    // Método para registrar la relación estudiante-materia-profesor
-  registerSubjectTeachers(subjectTeacherRecords: { studentId: number; subjectId: number; teacherId: number }[]): Observable<void> {
+  registerSubjectTeachers(subjectTeacherRecords: { studentId: number; subjectId: number; professorId: number }[]): Observable<void> {
     // Endpoint para registrar las relaciones de materias y profesores
     return this.http.post<void>(`${this.apiUrl}/register-subject-teachers`, subjectTeacherRecords);
   }
