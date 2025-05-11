@@ -33,7 +33,7 @@ export class StudentRegisterComponent implements OnInit {
     private subjectService: SubjectService,
     private professorService: ProfessorService,
     private programService: ProgramService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.studentForm = this.fb.group({
@@ -48,33 +48,34 @@ export class StudentRegisterComponent implements OnInit {
   loadInitialData(): void {
     this.subjectService.getSubjects().subscribe((data) => (this.subjects = data));
     this.professorService.getAllTeachers().subscribe((data) => {
-  console.log('Profesores recibidos:', data);
-  this.teachers = data;
-});
+      console.log('Profesores recibidos:', data);
+      this.teachers = data;
+    });
 
     this.programService.getAllPrograms().subscribe((data) => (this.programs = data));
   }
+  
 
-toggleSubject(subjectId: number): void {
-  const index = this.selectedSubjects.indexOf(subjectId);
-  if (index > -1) {
-    this.selectedSubjects.splice(index, 1);
-    delete this.subjectTeacherMap[subjectId];
-  } else if (this.selectedSubjects.length < 3) {
-    this.selectedSubjects.push(subjectId);
+  toggleSubject(subjectId: number): void {
+    const index = this.selectedSubjects.indexOf(subjectId);
+    if (index > -1) {
+      this.selectedSubjects.splice(index, 1);
+      delete this.subjectTeacherMap[subjectId];
+    } else if (this.selectedSubjects.length < 3) {
+      this.selectedSubjects.push(subjectId);
 
-    // Llama al endpoint para obtener el profesor asignado a la materia
-    this.professorService.assignToSubject(subjectId).subscribe({
-      next: (professor) => {
-        this.subjectTeacherMap[subjectId] = professor?.teacherId ?? null;
-        console.log('Profesor asignado a la materia:', professor);
-      },
-      error: () => {
-        this.subjectTeacherMap[subjectId] = null;
-      }
-    });
+      // Llama al endpoint para obtener el profesor asignado a la materia
+      this.professorService.getAssignedTeacherForSubject(subjectId).subscribe({
+        next: (professor) => {
+          this.subjectTeacherMap[subjectId] = professor?.teacherId ?? null;
+          console.log('Profesor asignado a la materia:', professor);
+        },
+        error: () => {
+          this.subjectTeacherMap[subjectId] = null;
+        }
+      });
+    }
   }
-}
 
   isSelected(subjectId: number): boolean {
     return this.selectedSubjects.includes(subjectId);
@@ -84,12 +85,15 @@ toggleSubject(subjectId: number): void {
     const subject = this.subjects.find((s) => s.subjectId === subjectId);
     return subject ? subject.subjectName : '';
   }
-
-  getAvailableTeachersForSubject(subjectId: number): Professor[] {
-    const assignedTeachers = Object.values(this.subjectTeacherMap).filter(id => id !== null);
-    const teachersForSubject = this.teachers.filter(teacher => teacher.subjectIds?.includes(subjectId));
-    return teachersForSubject.filter(teacher => !assignedTeachers.includes(teacher.teacherId));
+  getAvailableTeacherForSubject(subjectId: number): Professor[] {
+    // Buscar los profesores asignados a la materia usando el subjectId
+    console.log (this.teachers)
+    const teacher = this.teachers.filter(teacher => teacher.subjectIds?.includes(subjectId));
+    console.log('Profesores disponibles para la materia:', teacher);
+    return teacher;  // Retorna el arreglo de profesores
   }
+
+
 
   assignTeacher(subjectId: number, event: Event): void {
     const teacherId = +(event.target as HTMLSelectElement).value;

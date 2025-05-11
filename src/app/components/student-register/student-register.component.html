@@ -35,12 +35,8 @@
       <h3>Selección de Materias (Máximo 3)</h3>
       <div *ngFor="let subject of subjects; let i = index">
         <label>
-          <input
-            type="checkbox"
-            [value]="subject.subjectId"
-            (change)="toggleSubject(subject.subjectId)"
-            [disabled]="selectedSubjects.length >= 3 && !isSelected(subject.subjectId)"
-          />
+          <input type="checkbox" [value]="subject.subjectId" (change)="toggleSubject(subject.subjectId)"
+            [disabled]="selectedSubjects.length >= 3 && !isSelected(subject.subjectId)" />
           {{ subject.subjectName }} (3 créditos)
         </label>
       </div>
@@ -54,10 +50,12 @@
       <label for="teacher-{{subjectId}}">Profesor:</label>
       <select id="teacher-{{subjectId}}" (change)="assignTeacher(subjectId, $event)">
         <option [value]="0">-- Seleccione un profesor --</option>
-        <option *ngFor="let teacher of getAvailableTeachersForSubject(subjectId)" [value]="teacher.teacherId" [selected]="subjectTeacherMap[subjectId] === teacher.teacherId">
+        <option *ngFor="let teacher of getAvailableTeacherForSubject(subjectId)" [value]="teacher.teacherId"
+          [selected]="subjectTeacherMap[subjectId] === teacher.teacherId">
           {{ teacher.name }}
         </option>
       </select>
+
       <div *ngIf="subjectTeacherMap[subjectId] === 0 && studentForm.touched">
         <small style="color: red;">Debes seleccionar un profesor para {{ getSubjectName(subjectId) }}.</small>
       </div>
@@ -67,10 +65,8 @@
       <small style="color: red;">No puedes seleccionar el mismo profesor para diferentes materias.</small>
     </div>
 
-    <button
-      type="submit"
-      [disabled]="studentForm.invalid || selectedSubjects.length !== 3 || hasUnassignedTeachers() || hasDuplicateTeacher()"
-    >
+    <button type="submit"
+      [disabled]="studentForm.invalid || selectedSubjects.length !== 3 || hasUnassignedTeachers() || hasDuplicateTeacher()">
       Registrar estudiante
     </button>
   </form>
@@ -85,4 +81,3 @@
     <p>La lista de compañeros por materia no se puede mostrar con los métodos de servicio actuales.</p>
   </div>
 </div>
-
