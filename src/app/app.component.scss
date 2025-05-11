@@ -165,3 +165,20 @@
       margin-block: 1.5rem;
     }
   }
+
+  .intro-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.nav-links a {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}

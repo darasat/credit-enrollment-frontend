@@ -2,7 +2,7 @@
 <div class="full-screen-center">
   <div class="container">
     <h2>Lista de Estudiantes</h2>
-    <table class="table">
+    <table class="students-table">
       <thead>
         <tr>
           <th>Nombre</th>
@@ -11,15 +11,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let student of students">
-          <td>{{student.name}}</td>
           <td>
-            <ul>
-              <!-- <li *ngFor="let course of student.courses">
-                {{course.name}} (Profesor: {{course.professorName}})
-              </li> -->
-            </ul>
+            {{ student.name }}
+          </td>
+          <td>
+            {{ student.email }}
           </td>
         </tr>
+
       </tbody>
     </table>
   </div>
