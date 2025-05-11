@@ -17,17 +17,50 @@ export class StudentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadStudents();
+      this.updatePagedStudents();
   }
 
-  loadStudents(): void {
-    this.studentService.getAllStudents().subscribe(
-      (students) => {
-        this.students = students;
-        console.log('Students loaded:', this.students);
-      },
-      (error) => {
-        console.error('Error loading students:', error);
-      }
-    );
+loadStudents(): void {
+  this.studentService.getAllStudents().subscribe(
+    (students) => {
+      this.students = students;
+      console.log('Students loaded:', this.students);
+      this.updatePagedStudents(); // ✅ Mover aquí
+    },
+    (error) => {
+      console.error('Error loading students:', error);
+    }
+  );
+}
+
+
+pagedStudents: Student[] = [];
+
+currentPage = 1;
+pageSize = 5;
+
+get totalPages(): number {
+  return Math.ceil(this.students.length / this.pageSize);
+}
+
+
+updatePagedStudents() {
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  this.pagedStudents = this.students.slice(startIndex, startIndex + this.pageSize);
+}
+
+nextPage() {
+  if (this.currentPage < this.totalPages) {
+    this.currentPage++;
+    this.updatePagedStudents();
   }
+}
+
+previousPage() {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+    this.updatePagedStudents();
+  }
+}
+
 }

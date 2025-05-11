@@ -1,25 +1,26 @@
-<!-- Agrega esta clase al contenedor padre más alto posible, como en app.component.html -->
 <div class="full-screen-center">
   <div class="container">
     <h2>Lista de Estudiantes</h2>
+    
     <table class="students-table">
       <thead>
         <tr>
           <th>Nombre</th>
-          <th>Materias</th>
+          <th>Email</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of students">
-          <td>
-            {{ student.name }}
-          </td>
-          <td>
-            {{ student.email }}
-          </td>
+        <tr *ngFor="let student of pagedStudents">
+          <td>{{ student.name }}</td>
+          <td>{{ student.email }}</td>
         </tr>
-
       </tbody>
     </table>
+
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      Página {{ currentPage }} de {{ totalPages }}
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
   </div>
 </div>
